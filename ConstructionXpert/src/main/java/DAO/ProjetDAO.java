@@ -24,11 +24,11 @@ public class ProjetDAO {
     }
 
     public static List<Projet> getAllProjet() throws SQLException {
+        List<Projet> projetList = new ArrayList<>();
         String sql = "SELECT * FROM projet";
         Connection con = Connector.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        List<Projet> projetList = new ArrayList<>();
         while ((rs.next())){
             Projet projet = new Projet();
             projet.setId(rs.getInt("id"));

@@ -15,7 +15,6 @@
         .hero {
             position: relative;
             height: 100vh;
-            background: url('./photos/construction-silhouette.jpg') no-repeat center center/cover;
             color: white;
             display: flex;
             flex-direction: column;
@@ -23,6 +22,17 @@
             align-items: center;
             text-align: center;
             padding: 20px;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('./photos/construction-silhouette.jpg') no-repeat center center/cover;
+            filter: blur(4px);
+            z-index: -1;
         }
         .navbar {
             position: absolute;
@@ -70,6 +80,9 @@
                 font-size: 1rem;
             }
         }
+        .text-center{
+            backdrop-filter: blur(5px);
+        }
     </style>
 </head>
 <body>
@@ -82,19 +95,19 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Who We Are</a></li>
+                    <li class="nav-item"><a class="nav-link" href="projet?action=list">Afficher Les projet</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">who we are</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-dark" href="#">Get In Touch</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-dark" href="#">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <div class="hero-content text-center">
-        <h1>Lorem ipsum dolor sit amet</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <h1>ConstructionXpert Services Solution</h1>
+        <p>Cette application web permet à l'équipe de construction de créer et gérer efficacement des projets, d'assigner des tâches aux membres, de gérer les ressources essentielles et de suivre en temps réel l'évolution des projets et des tâches</p>
         <div class="hero-buttons">
             <button class="btn btn-dark">Learn More</button>
             <button class="btn btn-outline-light">Get In Touch</button>

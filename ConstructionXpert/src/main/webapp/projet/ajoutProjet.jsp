@@ -19,19 +19,33 @@
             border-radius: 8px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
+        .navbar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 15px 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .navbar-brand .logo {
+            height: 40px;
+        }
+        .nav-link {
+            color: white !important;
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
 <header class="hero">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#"> <img src="../photos/main_icon.png" alt="Logo" class="logo"> </a>
+            <a class="navbar-brand" href="#"> <img src="./photos/main_icon.png" alt="Logo" class="logo"> </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="projet?action=list">List des Projet</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Who We Are</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>
@@ -44,7 +58,7 @@
 
 <div class="container-form">
     <h2 class="text-center">Ajouter un Projet</h2>
-    <form action="AjouterProjetServlet" method="post">
+    <form action="projet?action=add" method="post">
         <div class="mb-3">
             <label for="nom" class="form-label">Nom du projet</label>
             <input type="text" class="form-control" id="nom" name="nom" required>
@@ -54,7 +68,7 @@
             <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
         </div>
         <div class="mb-3">
-            <label for="dateDebut" class="form-label">Date de début</label>
+            <label for="dateDebut" class="form-label">Date de debut</label>
             <input type="date" class="form-control" id="dateDebut" name="dateDebut" required>
         </div>
         <div class="mb-3">

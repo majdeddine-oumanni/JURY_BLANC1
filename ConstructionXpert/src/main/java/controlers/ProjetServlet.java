@@ -18,6 +18,7 @@ public class ProjetServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action == null || action.isEmpty())
             action="list";
+
         try {
             switch (action){
                 case "list":
@@ -63,8 +64,8 @@ public class ProjetServlet extends HttpServlet {
 
 
     private void afficherProjetList(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
-        List<Projet> projetList = ProjetDAO.getAllProjet();
-        req.setAttribute("projetList", projetList);
+        List<Projet> projets = ProjetDAO.getAllProjet();
+        req.setAttribute("projetList", projets);
         req.getRequestDispatcher("/projet/projetList.jsp").forward(req,resp);
     }
 
