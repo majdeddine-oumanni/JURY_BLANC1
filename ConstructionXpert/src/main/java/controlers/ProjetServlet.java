@@ -33,6 +33,12 @@ public class ProjetServlet extends HttpServlet {
                     request.setAttribute("projet", projet);
                     request.getRequestDispatcher("/projet/modifierProjet.jsp").forward(request,response);
                     break;
+                case "delete":
+                    suprimerProjet(request,response);
+                    break;
+                default:
+                    response.sendRedirect("error.jsp");
+                    break;
 
             }
         }catch (SQLException e) {
@@ -52,8 +58,8 @@ public class ProjetServlet extends HttpServlet {
                 case "update":
                     modifierProjet(request,response);
                     break;
-                case "delete":
-                    suprimerProjet(request,response);
+                default:
+                    response.sendRedirect("error.jsp");
                     break;
             }
         }catch (SQLException e) {

@@ -2,6 +2,7 @@ package DAO;
 
 import DBUtils.Connector;
 import models.Projet;
+import models.Tache;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static DBUtils.Connector.getConnection;
 
 public class ProjetDAO {
     public static void ajouterProjet(Projet projet) throws SQLException {
@@ -79,5 +82,24 @@ public class ProjetDAO {
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, id);
         ps.executeUpdate();
+    }
+
+    public static List<Tache> getTacheList() throws SQLException {
+        List<Tache> tacheList = new ArrayList<>();
+        String sql = "SELECT * FROM tache";
+        Connection con = getConnection();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+            Tache tache = new Tache(
+                    rs.getInt("id"),
+                    rs.getInt("projetId"),
+                    rs.getString("description"),
+                    rs.getDate("dateDebut"),
+                    rs.getDate("dateFin")
+            );
+            tacheList.add(tache);
+        }
+        return tacheList;
     }
 }

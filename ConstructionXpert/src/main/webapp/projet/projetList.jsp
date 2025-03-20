@@ -57,6 +57,8 @@
       padding: 20px;
       margin-bottom: 25px;
       transition: transform 0.2s;
+      cursor: pointer;
+      position: relative;
     }
 
     .project-card:hover {
@@ -98,6 +100,27 @@
       margin-top: 15px;
       padding-top: 15px;
       border-top: 1px solid #eee;
+      position: relative;
+      z-index: 10;
+    }
+
+    .btn-ajouter-tache {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .btn-ajouter-tache:hover {
+      background-color: #219653;
+      color: white;
     }
 
     .btn-modifier {
@@ -127,10 +150,23 @@
       background-color: #c0392b;
       color: white;
     }
+
+    .project-card-wrapper {
+      position: relative;
+    }
+
+    .card-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
-<!-- Navigation -->
+
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <a class="navbar-brand" href="#">
@@ -143,22 +179,20 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="projet?action=list">Afficher Les projet</a></li>
         <li class="nav-item"><a class="nav-link" href="projet?action=add">Ajouter un projet</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>
-        <li class="nav-item"><a class="nav-link btn btn-dark" href="#">Login</a></li>
+        <!--<li class="nav-item"><a class="nav-link" href="#">Services</a></li>-->
+        <!--<li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>-->
+        <li class="nav-item"><a class="nav-link btn btn-dark" href="#">Logout</a></li>
       </ul>
     </div>
   </div>
 </nav>
-
-<!-- Page Header -->
 <div class="page-header">
   <div class="container">
     <h2 class="text-center">Project List</h2>
   </div>
 </div>
 
-<!-- Projects -->
+
 <div class="container">
   <div class="row">
     <%
@@ -167,22 +201,28 @@
         for (Projet projet : projets) {
     %>
     <div class="col-md-4">
-      <div class="project-card">
-        <h4><%= projet.getNom() %><span class="project-id"><%=projet.getId()%></span></h4>
-        <p><strong>Description:</strong> <%= projet.getDescription() %></p>
-        <p><strong>Start Date:</strong> <%= projet.getDateDebut() %></p>
-        <p><strong>End Date:</strong> <%= projet.getDateFin() %></p>
-        <p><strong>Budget:</strong> <%= projet.getBudget() %> DH</p>
+      <div class="project-card-wrapper">
+        <a href="tache?action=list&projetId=<%= projet.getId() %>" class="card-link"></a>
+        <div class="project-card">
+          <h4><%= projet.getNom() %><span class="project-id"><%=projet.getId()%></span></h4>
+          <p><strong>Description:</strong> <%=projet.getDescription()%></p>
+          <p><strong>Start Date:</strong> <%=projet.getDateDebut()%></p>
+          <p><strong>End Date:</strong> <%=projet.getDateFin()%></p>
+          <p><strong>Budget:</strong> <%=projet.getBudget()%> DH</p>
 
-        <!-- Action Buttons -->
-        <div class="project-actions">
-          <a href="projet?action=edit&id=<%= projet.getId() %>" class="btn btn-modifier">
-            <i class="fas fa-edit me-1"></i> Modifier
+          <a href="tache?action=add&projetId=<%= projet.getId() %>" class="btn btn-ajouter-tache">
+            <i class="fas fa-tasks me-1"></i> Ajouter tache
           </a>
-          <a href="projet?action=delete&id=<%= projet.getId() %>" class="btn btn-supprimer"
-             onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet?')">
-            <i class="fas fa-trash me-1"></i> Supprimer
-          </a>
+
+          <div class="project-actions">
+            <a href="projet?action=update&&id=<%= projet.getId() %>" class="btn btn-modifier">
+              <i class="fas fa-edit me-1"></i> Modifier
+            </a>
+            <a href="projet?action=delete&&id=<%= projet.getId() %>" class="btn btn-supprimer"
+               onclick="return confirm('Etes-vous sur de vouloir supprimer ce projet?')">
+              <i class="fas fa-trash me-1"></i> Supprimer
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -199,7 +239,16 @@
   </div>
 </div>
 
-<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.btn-ajouter-tache, .btn-modifier, .btn-supprimer');
+    buttons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+  });
+</script>
 </body>
 </html>
