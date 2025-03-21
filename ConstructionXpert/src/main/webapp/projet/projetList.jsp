@@ -57,7 +57,6 @@
       padding: 20px;
       margin-bottom: 25px;
       transition: transform 0.2s;
-      cursor: pointer;
       position: relative;
     }
 
@@ -100,8 +99,6 @@
       margin-top: 15px;
       padding-top: 15px;
       border-top: 1px solid #eee;
-      position: relative;
-      z-index: 10;
     }
 
     .btn-ajouter-tache {
@@ -114,12 +111,27 @@
       width: 100%;
       text-align: center;
       margin-bottom: 15px;
-      position: relative;
-      z-index: 10;
     }
 
     .btn-ajouter-tache:hover {
       background-color: #219653;
+      color: white;
+    }
+
+    .btn-voir-taches {
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .btn-voir-taches:hover {
+      background-color: #d35400;
       color: white;
     }
 
@@ -149,19 +161,6 @@
     .btn-supprimer:hover {
       background-color: #c0392b;
       color: white;
-    }
-
-    .project-card-wrapper {
-      position: relative;
-    }
-
-    .card-link {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
     }
   </style>
 </head>
@@ -201,28 +200,29 @@
         for (Projet projet : projets) {
     %>
     <div class="col-md-4">
-      <div class="project-card-wrapper">
-        <a href="tache?action=list&projetId=<%= projet.getId() %>" class="card-link"></a>
-        <div class="project-card">
-          <h4><%= projet.getNom() %><span class="project-id"><%=projet.getId()%></span></h4>
-          <p><strong>Description:</strong> <%=projet.getDescription()%></p>
-          <p><strong>Start Date:</strong> <%=projet.getDateDebut()%></p>
-          <p><strong>End Date:</strong> <%=projet.getDateFin()%></p>
-          <p><strong>Budget:</strong> <%=projet.getBudget()%> DH</p>
+      <div class="project-card">
+        <h4><%= projet.getNom() %><span class="project-id"><%=projet.getId()%></span></h4>
+        <p><strong>Description:</strong> <%=projet.getDescription()%></p>
+        <p><strong>Start Date:</strong> <%=projet.getDateDebut()%></p>
+        <p><strong>End Date:</strong> <%=projet.getDateFin()%></p>
+        <p><strong>Budget:</strong> <%=projet.getBudget()%> DH</p>
 
-          <a href="tache?action=add&projetId=<%= projet.getId() %>" class="btn btn-ajouter-tache">
-            <i class="fas fa-tasks me-1"></i> Ajouter tache
+        <a href="tache?action=list&projetId=<%= projet.getId() %>" class="btn btn-voir-taches">
+          <i class="fas fa-list me-1"></i> Voir les taches
+        </a>
+
+        <a href="tache?action=add&projetId=<%= projet.getId() %>" class="btn btn-ajouter-tache">
+          <i class="fas fa-tasks me-1"></i> Ajouter tache
+        </a>
+
+        <div class="project-actions">
+          <a href="projet?action=update&&id=<%= projet.getId() %>" class="btn btn-modifier">
+            <i class="fas fa-edit me-1"></i> Modifier
           </a>
-
-          <div class="project-actions">
-            <a href="projet?action=update&&id=<%= projet.getId() %>" class="btn btn-modifier">
-              <i class="fas fa-edit me-1"></i> Modifier
-            </a>
-            <a href="projet?action=delete&&id=<%= projet.getId() %>" class="btn btn-supprimer"
-               onclick="return confirm('Etes-vous sur de vouloir supprimer ce projet?')">
-              <i class="fas fa-trash me-1"></i> Supprimer
-            </a>
-          </div>
+          <a href="projet?action=delete&&id=<%= projet.getId() %>" class="btn btn-supprimer"
+             onclick="return confirm('Etes-vous sur de vouloir supprimer ce projet?')">
+            <i class="fas fa-trash me-1"></i> Supprimer
+          </a>
         </div>
       </div>
     </div>
@@ -240,15 +240,5 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const buttons = document.querySelectorAll('.btn-ajouter-tache, .btn-modifier, .btn-supprimer');
-    buttons.forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
-    });
-  });
-</script>
 </body>
 </html>

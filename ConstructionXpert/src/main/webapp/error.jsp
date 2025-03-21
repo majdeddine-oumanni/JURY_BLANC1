@@ -13,7 +13,7 @@
         <h1 class="display-4">Oups ! Une erreur est survenue.</h1>
         <p class="lead">Nous avons rencontré un problème lors du traitement de votre demande.</p>
         <p>Veuillez réessayer plus tard ou contacter l'administrateur.</p>
-        <a href="membre?action=list" class="btn btn-primary mt-3">Retour à l'accueil</a>
+        <a href="index.jsp" class="btn btn-primary mt-3">Retour à l'accueil</a>
     </div>
 </div>
 </body>

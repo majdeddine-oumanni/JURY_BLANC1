@@ -23,7 +23,7 @@ public class TacheServlet extends HttpServlet {
         try {
             switch (action){
                 case "add":
-                    int id = Integer.parseInt(req.getParameter("id"));
+                    int id = Integer.parseInt(req.getParameter("projetId"));
                     Projet projet = ProjetDAO.getProjetById(id);
                     req.setAttribute("projet", projet);
                     req.getRequestDispatcher("/tache/ajoutTache.jsp").forward(req,resp);
@@ -38,12 +38,12 @@ public class TacheServlet extends HttpServlet {
                     break;
                 case "update":
                     int tacheId = Integer.parseInt(req.getParameter("id"));
-                    TacheDAO.getTacheById(tacheId);
-                    req.getRequestDispatcher("/tache/modifierProjet.jsp").forward(req,resp);
+                    Tache tache = TacheDAO.getTacheById(tacheId);
+                    req.setAttribute("tache", tache);
+                    req.getRequestDispatcher("/tache/modifierTache.jsp").forward(req,resp);
                     break;
                 case "delete":
-                    int tacheID = Integer.parseInt(req.getParameter("id"));
-                    TacheDAO.suprimerTache(tacheID);
+                    suprimerTache(req,resp);
                     break;
                 default:
                     resp.sendRedirect("error.jsp");
@@ -89,7 +89,7 @@ public class TacheServlet extends HttpServlet {
                 dateFin
         );
         TacheDAO.ajouterTache(tache);
-        resp.sendRedirect("tache?action=list");
+        resp.sendRedirect("tache?action=list&projetId=" + projetId);
     }
     protected void modifierTache(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
         int id = Integer.parseInt(req.getParameter("id"));
@@ -105,6 +105,12 @@ public class TacheServlet extends HttpServlet {
                 dateFin
         );
         TacheDAO.modifierTache(tache);
+        resp.sendRedirect("tache?action=list");
+    }
+
+    protected void suprimerTache(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+        int tacheID = Integer.parseInt(req.getParameter("id"));
+        TacheDAO.suprimerTache(tacheID);
         resp.sendRedirect("tache?action=list");
     }
 }
