@@ -14,7 +14,6 @@ import static DBUtils.Connector.getConnection;
 
 public class TacheDAO {
 
-
     public static void ajouterTache(Tache tache) throws SQLException {
         String sql = "INSERT INTO tache(projetId, description, dateDebut, dateFin) VALUES (?,?,?,?)";
         Connection con = getConnection();
