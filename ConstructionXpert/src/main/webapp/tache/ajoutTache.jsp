@@ -218,7 +218,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Validate that end date is after start date
+
     document.addEventListener('DOMContentLoaded', function() {
         const startDateInput = document.getElementById('dateDebut');
         const endDateInput = document.getElementById('dateFin');

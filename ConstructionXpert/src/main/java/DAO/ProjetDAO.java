@@ -84,11 +84,12 @@ public class ProjetDAO {
         ps.executeUpdate();
     }
 
-    public static List<Tache> getTacheList() throws SQLException {
+    public static List<Tache> getTacheList(int projetId) throws SQLException {
         List<Tache> tacheList = new ArrayList<>();
-        String sql = "SELECT * FROM tache";
+        String sql = "SELECT * FROM tache WHERE projetId = ?";
         Connection con = getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, projetId);
         ResultSet rs = ps.executeQuery();
         while (rs.next()){
             Tache tache = new Tache(
