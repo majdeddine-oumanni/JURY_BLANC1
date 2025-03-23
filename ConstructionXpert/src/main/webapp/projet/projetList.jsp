@@ -207,11 +207,11 @@
         <p><strong>End Date:</strong> <%=projet.getDateFin()%></p>
         <p><strong>Budget:</strong> <%=projet.getBudget()%> DH</p>
 
-        <a href="tache?action=list&projetId=<%= projet.getId() %>" class="btn btn-voir-taches">
+        <a href="tache?action=list&&projetId=<%=projet.getId()%>" class="btn btn-voir-taches">
           <i class="fas fa-list me-1"></i> Voir les taches
         </a>
 
-        <a href="tache?action=add&projetId=<%= projet.getId() %>" class="btn btn-ajouter-tache">
+        <a href="tache?action=add&&projetId=<%=projet.getId()%>" class="btn btn-ajouter-tache">
           <i class="fas fa-tasks me-1"></i> Ajouter tache
         </a>
 

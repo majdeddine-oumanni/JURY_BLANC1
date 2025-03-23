@@ -83,24 +83,4 @@ public class ProjetDAO {
         ps.setInt(1, id);
         ps.executeUpdate();
     }
-
-    public static List<Tache> getTacheList(int projetId) throws SQLException {
-        List<Tache> tacheList = new ArrayList<>();
-        String sql = "SELECT * FROM tache WHERE projetId = ?";
-        Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, projetId);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()){
-            Tache tache = new Tache(
-                    rs.getInt("id"),
-                    rs.getInt("projetId"),
-                    rs.getString("description"),
-                    rs.getDate("dateDebut"),
-                    rs.getDate("dateFin")
-            );
-            tacheList.add(tache);
-        }
-        return tacheList;
-    }
 }

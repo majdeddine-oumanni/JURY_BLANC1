@@ -22,29 +22,31 @@ public class TacheServlet extends HttpServlet {
         String action = req.getParameter("action");
         try {
             switch (action){
+                case "list":
+                    afficherTache(req,resp);
+                    break;
+
                 case "add":
                     int id = Integer.parseInt(req.getParameter("projetId"));
                     Projet projet = ProjetDAO.getProjetById(id);
                     req.setAttribute("projet", projet);
                     req.getRequestDispatcher("/tache/ajoutTache.jsp").forward(req,resp);
                     break;
-                case "list":
-                    int projetId = Integer.parseInt(req.getParameter("projetId"));
-                    List<Tache> tacheList = ProjetDAO.getTacheList(projetId);
-                    Projet projet1 = ProjetDAO.getProjetById(projetId);
-                    req.setAttribute("tacheList", tacheList);
-                    req.setAttribute("projet", projet1);
-                    req.getRequestDispatcher("/tache/projetList.jsp").forward(req,resp);
-                    break;
+
                 case "update":
                     int tacheId = Integer.parseInt(req.getParameter("id"));
+                    int projet_id = Integer.parseInt(req.getParameter("projetId"));
+                    Projet projet1 = ProjetDAO.getProjetById(projet_id);
                     Tache tache = TacheDAO.getTacheById(tacheId);
                     req.setAttribute("tache", tache);
+                    req.setAttribute("projet", projet1);
                     req.getRequestDispatcher("/tache/modifierTache.jsp").forward(req,resp);
                     break;
+
                 case "delete":
                     suprimerTache(req,resp);
                     break;
+
                 default:
                     resp.sendRedirect("error.jsp");
                     break;
@@ -56,61 +58,69 @@ public class TacheServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
         try {
             switch (action){
-                case "create":
-                    ajouterTache(req,resp);
+                case "add":
+                    ajouterTache(request,response);
                     break;
                 case "update":
-                    modifierTache(req,resp);
+                    modifierTache(request,response);
                     break;
                 default:
-                    resp.sendRedirect("error.jsp");
+                    response.sendRedirect("error.jsp");
                     break;
-
             }
         }catch (SQLException e) {
             e.printStackTrace();
-            resp.sendRedirect("error.jsp");
+            response.sendRedirect("error.jsp");
         }
     }
 
-    protected void ajouterTache(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+    private void afficherTache(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int projetId = Integer.parseInt(request.getParameter("projetId"));
+        List<Tache> tacheList = TacheDAO.getTacheList(projetId);
+        Projet projet1 = ProjetDAO.getProjetById(projetId);
+        request.setAttribute("tacheList", tacheList);
+        request.setAttribute("projet", projet1);
+        request.getRequestDispatcher("/tache/tacheList.jsp").forward(request,response);
+    }
+
+    private void ajouterTache(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
         int projetId = Integer.parseInt(req.getParameter("projetId"));
         String description = req.getParameter("description");
-        Date dateDebut = Date.valueOf(req.getParameter("dateDebut"));
-        Date dateFin = Date.valueOf(req.getParameter("dateFin"));
-        Tache tache = new Tache(
-                projetId,
-                description,
-                dateDebut,
-                dateFin
-        );
+        String dateDebut = req.getParameter("dateDebut");
+        String dateFin = req.getParameter("dateFin");
+        Tache tache = new Tache();
+        tache.setprojetId(projetId);
+        tache.setDescription(description);
+        tache.setDateDebut(Date.valueOf(dateDebut));
+        tache.setDateFin(Date.valueOf(dateFin));
         TacheDAO.ajouterTache(tache);
+
         resp.sendRedirect("tache?action=list&projetId=" + projetId);
     }
-    protected void modifierTache(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+    private void modifierTache(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
         int id = Integer.parseInt(req.getParameter("id"));
         int projetId = Integer.parseInt(req.getParameter("projetId"));
         String description = req.getParameter("description");
-        Date dateDebut = Date.valueOf(req.getParameter("dateDebut"));
-        Date dateFin = Date.valueOf(req.getParameter("dateFin"));
-        Tache tache = new Tache(
-                id,
-                projetId,
-                description,
-                dateDebut,
-                dateFin
-        );
+        String dateDebut = req.getParameter("dateDebut");
+        String dateFin = req.getParameter("dateFin");
+        Tache tache = new Tache();
+        tache.setId(id);
+        tache.setDescription(description);
+        tache.setDateDebut(Date.valueOf(dateDebut));
+        tache.setDateFin(Date.valueOf(dateFin));
         TacheDAO.modifierTache(tache);
-        resp.sendRedirect("tache?action=list");
+        resp.sendRedirect("tache?action=list&projetId=" + projetId);
     }
 
-    protected void suprimerTache(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+    private void suprimerTache(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
         int tacheID = Integer.parseInt(req.getParameter("id"));
+        int projetId = Integer.parseInt(req.getParameter("projetId"));
         TacheDAO.suprimerTache(tacheID);
-        resp.sendRedirect("tache?action=list");
+        resp.sendRedirect("tache?action=list&projetId=" + projetId);
     }
 }
+

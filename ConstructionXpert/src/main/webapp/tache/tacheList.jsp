@@ -243,10 +243,10 @@
                 <p><strong>End Date:</strong> <%= tache.getDateFin() %></p>
 
                 <div class="task-actions">
-                    <a href="tache?action=update&id=<%= tache.getId() %>" class="btn btn-modifier">
+                    <a href="tache?action=update&id=<%= tache.getId() %>&&projetId=<%= projet.getId() %>" class="btn btn-modifier">
                         <i class="fas fa-edit me-1"></i> Modifier
                     </a>
-                    <a href="tache?action=delete&id=<%= tache.getId() %>&projetId=<%= projet.getId() %>" class="btn btn-supprimer"
+                    <a href="tache?action=delete&id=<%= tache.getId() %>&&projetId=<%= projet.getId() %>" class="btn btn-supprimer"
                        onclick="return confirm('Etes-vous sur de vouloir supprimer cette tache?')">
                         <i class="fas fa-trash me-1"></i> Supprimer
                     </a>

@@ -176,7 +176,7 @@
             </div>
 
             <div class="form-container">
-                <form action="tache?action=create" method="post">
+                <form action="tache?action=add" method="post">
                     <input type="hidden" name="projetId" value="<%= projet.getId() %>">
 
                     <div class="mb-3">
@@ -198,10 +198,10 @@
 
                     <div class="d-flex justify-content-end">
                         <a href="tache?action=list&projetId=<%= projet.getId() %>" class="btn btn-cancel">
-                            <i class="fas fa-times me-1"></i> Cancel
+                            <i class="fas fa-times me-1"></i> Annuler
                         </a>
                         <button type="submit" class="btn btn-submit">
-                            <i class="fas fa-plus me-1"></i> Add Task
+                            <i class="fas fa-plus me-1"></i> Ajouter Tache
                         </button>
                     </div>
                 </form>

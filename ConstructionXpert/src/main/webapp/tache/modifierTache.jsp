@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Form</title>
+    <title>Update Task</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -160,16 +160,17 @@
 <%
     Tache tache = (Tache) request.getAttribute("tache");
     Projet projet = (Projet) request.getAttribute("projet");
-    boolean isUpdate = tache != null;
-    String pageTitle = isUpdate ? "Update Task" : "Add New Task";
-    String action = isUpdate ? "edit" : "create";
-    String submitButtonText = isUpdate ? "Update Task" : "Add Task";
-    String submitIcon = isUpdate ? "fas fa-save" : "fas fa-plus";
+
+    // If tache is null, redirect to project list or show error
+    if (tache == null) {
+        response.sendRedirect("projet?action=list");
+        return;
+    }
 %>
 
 <div class="page-header">
     <div class="container">
-        <h2 class="text-center"><%= pageTitle %></h2>
+        <h2 class="text-center">Update Task</h2>
     </div>
 </div>
 
@@ -178,34 +179,32 @@
         <div class="col-md-8">
             <% if (projet != null) { %>
             <div class="project-info">
-                <h5><%= isUpdate ? "Updating task in project" : "Adding task to project" %>: <%= projet.getNom() %></h5>
+                <h5>Updating task in project: <%= projet.getNom() %></h5>
                 <p><strong>Project ID:</strong> <%= projet.getId() %></p>
                 <p><strong>Project Duration:</strong> <%= projet.getDateDebut() %> to <%= projet.getDateFin() %></p>
             </div>
 
             <div class="form-container">
-                <form action="tache?action=<%= action %>" method="post">
-                    <% if (isUpdate) { %>
+                <form action="tache?action=update" method="post">
                     <input type="hidden" name="id" value="<%= tache.getId() %>">
-                    <% } %>
                     <input type="hidden" name="projetId" value="<%= projet.getId() %>">
 
                     <div class="mb-3">
                         <label for="description" class="form-label required-field">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" required><%= isUpdate ? tache.getDescription() : "" %></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="3" required><%= tache.getDescription() %></textarea>
                     </div>
 
                     <div class="mb-3">
                         <label for="dateDebut" class="form-label required-field">Start Date</label>
                         <input type="date" class="form-control" id="dateDebut" name="dateDebut"
-                               value="<%= isUpdate ? tache.getDateDebut() : "" %>" required
+                               value="<%= tache.getDateDebut() %>" required
                                min="<%= projet.getDateDebut() %>" max="<%= projet.getDateFin() %>">
                     </div>
 
                     <div class="mb-3">
                         <label for="dateFin" class="form-label required-field">End Date</label>
                         <input type="date" class="form-control" id="dateFin" name="dateFin"
-                               value="<%= isUpdate ? tache.getDateFin() : "" %>" required
+                               value="<%= tache.getDateFin() %>" required
                                min="<%= projet.getDateDebut() %>" max="<%= projet.getDateFin() %>">
                     </div>
 
@@ -214,7 +213,7 @@
                             <i class="fas fa-times me-1"></i> Cancel
                         </a>
                         <button type="submit" class="btn btn-submit">
-                            <i class="<%= submitIcon %> me-1"></i> <%= submitButtonText %>
+                            <i class="fas fa-save me-1"></i> Update Task
                         </button>
                     </div>
                 </form>
