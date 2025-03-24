@@ -5,11 +5,16 @@ public class Assignment {
     private int tacheId;
     private int ressourceId;
     private int quantiteUtilise;
-    private String resourceNom; // For display purposes
-    private String resourceType; // For display purposes
+    private String resourceNom;
+    private String resourceType;
 
     public Assignment(int id, int tacheId, int ressourceId, int quantiteUtilise) {
         this.id = id;
+        this.tacheId = tacheId;
+        this.ressourceId = ressourceId;
+        this.quantiteUtilise = quantiteUtilise;
+    }
+    public Assignment(int tacheId, int ressourceId, int quantiteUtilise) {
         this.tacheId = tacheId;
         this.ressourceId = ressourceId;
         this.quantiteUtilise = quantiteUtilise;

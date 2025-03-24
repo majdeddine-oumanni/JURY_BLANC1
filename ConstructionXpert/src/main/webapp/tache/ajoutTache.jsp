@@ -233,7 +233,6 @@
         form.addEventListener('submit', function(event) {
             const startDate = new Date(startDateInput.value);
             const endDate = new Date(endDateInput.value);
-
             if (endDate < startDate) {
                 event.preventDefault();
                 alert('End date must be after or equal to start date');

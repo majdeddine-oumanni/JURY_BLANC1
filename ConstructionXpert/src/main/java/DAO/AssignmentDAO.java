@@ -3,75 +3,93 @@ package DAO;
 import DBUtils.Connector;
 import models.Assignment;
 
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AssignmentDAO{
+public class AssignmentDAO {
+    public static void ajouterAssignment(Assignment assignment) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        PreparedStatement updateStmt = null;
 
-    public void addRessourceTache(Assignment assignment) throws SQLException {
-        String sql = "INSERT INTO tache_ressource (tacheId, ressourceId, quantiteUtilise) VALUES (?, ?, ?)";
+        try {
+            conn = Connector.getConnection();
+            conn.setAutoCommit(false);
 
-        try (Connection conn = Connector.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            pstmt.setInt(1, assignment.getTacheId());
-            pstmt.setInt(2, assignment.getRessourceId());
-            pstmt.setInt(3, assignment.getQuantiteUtilise());
+            String checkSql = "SELECT quantite FROM ressource WHERE id = ?";
+            stmt = conn.prepareStatement(checkSql);
+            stmt.setInt(1, assignment.getRessourceId());
+            ResultSet rs = stmt.executeQuery();
 
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows == 0) {
-                throw new SQLException("Creating ressource_tache failed, no rows affected.");
-            }
-
-            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    assignment.setId(generatedKeys.getInt(1));
-                } else {
-                    throw new SQLException("Creating ressource_tache failed, no ID obtained.");
+            if (rs.next()) {
+                int availableQuantity = rs.getInt("quantite");
+                if (availableQuantity < assignment.getQuantiteUtilise()) {
+                    throw new SQLException("Not enough resources available.");
                 }
+            } else {
+                throw new SQLException("Resource not found.");
             }
+
+            String insertSql = "INSERT INTO tache_ressource (ressourceId, tacheId, quantiteUtilise) VALUES (?, ?, ?)";
+            stmt = conn.prepareStatement(insertSql);
+            stmt.setInt(1, assignment.getRessourceId());
+            stmt.setInt(2, assignment.getTacheId());
+            stmt.setInt(3, assignment.getQuantiteUtilise());
+            stmt.executeUpdate();
+
+            String updateSql = "UPDATE ressource SET quantite = quantite - ? WHERE id = ?";
+            updateStmt = conn.prepareStatement(updateSql);
+            updateStmt.setInt(1, assignment.getQuantiteUtilise());
+            updateStmt.setInt(2, assignment.getRessourceId());
+            updateStmt.executeUpdate();
+
+            conn.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            if (conn != null) conn.rollback();
+            throw e;
+        } finally {
+            if (stmt != null) stmt.close();
+            if (updateStmt != null) updateStmt.close();
+            if (conn != null) conn.close();
         }
     }
 
-    public List<Assignment> getAllAssignment(int tacheId) throws SQLException {
-        List<Assignment> assignmentList = new ArrayList<>();
-        String sql = "SELECT * FROM tache_ressource WHERE tacheId = ?";
 
-        try (Connection conn = Connector.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    public static List<Assignment> getAssignmentsByTacheId(int tacheId) throws SQLException {
+        List<Assignment> assignments = new ArrayList<>();
+        String query = "SELECT t.id, t.tacheId, t.ressourceId, t.quantiteUtilise, r.nom, r.type " +
+                "FROM tache_ressource a " +
+                "JOIN ressource r ON a.ressourceId = r.id " +
+                "WHERE a.tacheId = ?";
 
-            pstmt.setInt(1, tacheId);
-            try (ResultSet rs = pstmt.executeQuery()) {
+        try (Connection con = Connector.getConnection();
+             PreparedStatement prst = con.prepareStatement(query)) {
+            prst.setInt(1, tacheId);
+            try (ResultSet rs = prst.executeQuery()) {
                 while (rs.next()) {
-                    Assignment assignment = new Assignment(
-                            rs.getInt("id"),
-                            rs.getInt("tacheId"),
-                            rs.getInt("ressourceId"),
-                            rs.getInt("quantiteUtilise")
-                    );
-                    assignmentList.add(assignment);
+                    Assignment assignment = new Assignment();
+                    assignment.setId(rs.getInt("id"));
+                    assignment.setTacheId(rs.getInt("tascheId"));
+                    assignment.setRessourceId(rs.getInt("ressourceId"));
+                    assignment.setQuantiteUtilise(rs.getInt("quantiteUtilise"));
+                    assignment.setResourceNom(rs.getString("nom"));
+                    assignment.setResourceType(rs.getString("type"));
+                    assignments.add(assignment);
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Log and handle the exception
         }
-        return assignmentList;
+        return assignments;
     }
-    // Add delete and update if necessary.  Keep it minimal if not used.
-    public void deleteRessourceTache(int tacheId, int ressourceId) throws SQLException {
-        String sql = "DELETE FROM ressource_tache WHERE tache_id = ? AND ressource_id = ?";
 
+    public static void supprimerAssignment(int id) throws SQLException {
+        String sql = "DELETE FROM tache_ressource WHERE id = ?";
         try (Connection conn = Connector.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, tacheId);
-            pstmt.setInt(2, ressourceId);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace(); // Log this properly
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
         }
     }
 }

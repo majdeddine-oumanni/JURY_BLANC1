@@ -253,6 +253,7 @@
                 </div>
             </div>
         </div>
+        <a href="assign?action=add&tacheId=<%=tache.getId()%>">affectation d'un ressource</a>
         <%
             }
         } else {
