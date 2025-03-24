@@ -113,22 +113,27 @@
             border-radius: 12px;
         }
 
-        .type-Matériel {
+        .type-Les-vehicules {
             background-color: #3498db;
             color: white;
         }
 
-        .type-Logiciel {
+        .type-Les-Machine {
+            background-color: #00c1b7;
+            color: white;
+        }
+
+        .type-Les-materiaux {
             background-color: #9b59b6;
             color: white;
         }
 
-        .type-Humain {
+        .type-Les-composants {
             background-color: #2ecc71;
             color: white;
         }
 
-        .type-Financier {
+        .type-Les-outils {
             background-color: #f1c40f;
             color: black;
         }
@@ -148,7 +153,7 @@
 
 <nav class="navbar navbar-expand-lg">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index.jsp">
             <img src="./photos/main_icon.png" alt="Logo" class="logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -189,7 +194,7 @@
                 <th>ID</th>
                 <th>Nom</th>
                 <th>Type</th>
-                <th>Quantité</th>
+                <th>Quantite</th>
                 <th>Fournisseur</th>
                 <th>Actions</th>
             </tr>

@@ -178,7 +178,7 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="projet?action=list">Afficher Les projet</a></li>
         <li class="nav-item"><a class="nav-link" href="projet?action=add">Ajouter un projet</a></li>
-        <li class="nav-item"><a class="nav-link" href="ressource?action=list">Afficher Les projet</a></li>
+        <li class="nav-item"><a class="nav-link" href="ressource?action=list">Afficher Les Ressources</a></li>
         <!--<li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>-->
         <li class="nav-item"><a class="nav-link btn btn-dark" href="index.jsp">Logout</a></li>
       </ul>

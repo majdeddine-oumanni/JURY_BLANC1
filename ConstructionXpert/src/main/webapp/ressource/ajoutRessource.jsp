@@ -158,16 +158,17 @@
                     <div class="mb-3">
                         <label for="type" class="form-label required-field">Type</label>
                         <select class="form-control" id="type" name="type" required>
-                            <option value="">Sélectionner un type</option>
-                            <option value="Matériel">Matériel</option>
-                            <option value="Logiciel">Logiciel</option>
-                            <option value="Humain">Humain</option>
-                            <option value="Financier">Financier</option>
+                            <option value="">Selectionner un type</option>
+                            <option value="Les-Machine">Les Machine</option>
+                            <option value="Les-vehicules">Les vehicules</option>
+                            <option value="Les-composants">Les composants</option>
+                            <option value="Les-outils">Les outils</option>
+                            <option value="Les-materiaux">Les materiaux</option>
                         </select>
                     </div>
 
                     <div class="mb-3">
-                        <label for="quantite" class="form-label required-field">Quantité</label>
+                        <label for="quantite" class="form-label required-field">Quantite</label>
                         <input type="number" class="form-control" id="quantite" name="quantite" min="0" required>
                     </div>
 

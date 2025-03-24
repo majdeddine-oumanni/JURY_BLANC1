@@ -188,16 +188,17 @@
                     <div class="mb-3">
                         <label for="type" class="form-label required-field">Type</label>
                         <select class="form-control" id="type" name="type" required>
-                            <option value="">Sélectionner un type</option>
-                            <option value="Matériel" <%= ressource.getType().equals("Matériel") ? "selected" : "" %>>Matériel</option>
-                            <option value="Logiciel" <%= ressource.getType().equals("Logiciel") ? "selected" : "" %>>Logiciel</option>
-                            <option value="Humain" <%= ressource.getType().equals("Humain") ? "selected" : "" %>>Humain</option>
-                            <option value="Financier" <%= ressource.getType().equals("Financier") ? "selected" : "" %>>Financier</option>
+                            <option value="">Selectionner un type</option>
+                            <option value="Les-Machine" <%= ressource.getType().equals("Les Machine") ? "selected" : "" %>>Les Machine</option>
+                            <option value="Les-vehicules" <%= ressource.getType().equals("Les vehicules") ? "selected" : "" %>>Les vehicules</option>
+                            <option value="Les-composants" <%= ressource.getType().equals("Les composants") ? "selected" : "" %>>Les composants</option>
+                            <option value="Les-outils" <%= ressource.getType().equals("Les outils") ? "selected" : "" %>>Les outils</option>
+                            <option value="Les-materiaux" <%= ressource.getType().equals("Les materiaux") ? "selected" : "" %>>Les materiaux</option>
                         </select>
                     </div>
 
                     <div class="mb-3">
-                        <label for="quantite" class="form-label required-field">Quantité</label>
+                        <label for="quantite" class="form-label required-field">Quantite</label>
                         <input type="number" class="form-control" id="quantite" name="quantite" value="<%= ressource.getQuantite() %>" min="0" required>
                     </div>
 
@@ -211,7 +212,7 @@
                             <i class="fas fa-times me-1"></i> Annuler
                         </a>
                         <button type="submit" class="btn btn-submit">
-                            <i class="fas fa-save me-1"></i> Mettre à jour
+                            <i class="fas fa-save me-1"></i> Mettre a jour
                         </button>
                     </div>
                 </form>
