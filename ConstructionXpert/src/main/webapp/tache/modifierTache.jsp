@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Task</title>
+    <title>Modifier Tache</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -150,8 +150,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="projet?action=list">Afficher Les projet</a></li>
-                <li class="nav-item"><a class="nav-link" href="projet?action=add">Ajouter un projet</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-dark" href="#">Logout</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-dark" href="index.jsp">Logout</a></li>
             </ul>
         </div>
     </div>
@@ -170,7 +169,7 @@
 
 <div class="page-header">
     <div class="container">
-        <h2 class="text-center">Update Task</h2>
+        <h2 class="text-center">Modifier Tache</h2>
     </div>
 </div>
 
@@ -179,9 +178,9 @@
         <div class="col-md-8">
             <% if (projet != null) { %>
             <div class="project-info">
-                <h5>Updating task in project: <%= projet.getNom() %></h5>
-                <p><strong>Project ID:</strong> <%= projet.getId() %></p>
-                <p><strong>Project Duration:</strong> <%= projet.getDateDebut() %> to <%= projet.getDateFin() %></p>
+                <h5>Modifier la tache de le projet: <%= projet.getNom() %></h5>
+                <p><strong>ID de projet:</strong> <%= projet.getId() %></p>
+                <p><strong>duree du projet:</strong> <%= projet.getDateDebut() %> to <%= projet.getDateFin() %></p>
             </div>
 
             <div class="form-container">
@@ -195,14 +194,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="dateDebut" class="form-label required-field">Start Date</label>
+                        <label for="dateDebut" class="form-label required-field">Date debut</label>
                         <input type="date" class="form-control" id="dateDebut" name="dateDebut"
                                value="<%= tache.getDateDebut() %>" required
                                min="<%= projet.getDateDebut() %>" max="<%= projet.getDateFin() %>">
                     </div>
 
                     <div class="mb-3">
-                        <label for="dateFin" class="form-label required-field">End Date</label>
+                        <label for="dateFin" class="form-label required-field">Date de Fin</label>
                         <input type="date" class="form-control" id="dateFin" name="dateFin"
                                value="<%= tache.getDateFin() %>" required
                                min="<%= projet.getDateDebut() %>" max="<%= projet.getDateFin() %>">
@@ -210,18 +209,18 @@
 
                     <div class="d-flex justify-content-end">
                         <a href="tache?action=list&projetId=<%= projet.getId() %>" class="btn btn-cancel">
-                            <i class="fas fa-times me-1"></i> Cancel
+                            <i class="fas fa-times me-1"></i> Annuler
                         </a>
                         <button type="submit" class="btn btn-submit">
-                            <i class="fas fa-save me-1"></i> Update Task
+                            <i class="fas fa-save me-1"></i> Modifier Tache
                         </button>
                     </div>
                 </form>
             </div>
             <% } else { %>
             <div class="alert alert-danger">
-                <p>Project not found. Please select a valid project.</p>
-                <a href="projet?action=list" class="btn btn-primary mt-3">Go to Project List</a>
+                <p>Projet introuvable. Veuillez sélectionner un projet valide.</p>
+                <a href="projet?action=list" class="btn btn-primary mt-3">Acceder a la liste des projets</a>
             </div>
             <% } %>
         </div>
@@ -230,7 +229,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Validate that end date is after start date
     document.addEventListener('DOMContentLoaded', function() {
         const startDateInput = document.getElementById('dateDebut');
         const endDateInput = document.getElementById('dateFin');
@@ -249,7 +247,7 @@
 
             if (endDate < startDate) {
                 event.preventDefault();
-                alert('End date must be after or equal to start date');
+                alert('La date de fin doit être postérieure ou égale à la date de début');
             }
         });
     });

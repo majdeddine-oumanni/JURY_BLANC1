@@ -46,10 +46,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="projet?action=list">List des Projet</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Who We Are</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-dark" href="#">Get In Touch</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-dark" href="index.jsp">Logout</a></li>
                 </ul>
             </div>
         </div>

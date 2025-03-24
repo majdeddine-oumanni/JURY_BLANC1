@@ -195,8 +195,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="projet?action=list">Afficher Les projet</a></li>
-                <li class="nav-item"><a class="nav-link" href="projet?action=add">Ajouter un projet</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-dark" href="#">Logout</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-dark" href="index.jsp">Logout</a></li>
             </ul>
         </div>
     </div>
@@ -204,7 +203,7 @@
 
 <div class="page-header">
     <div class="container">
-        <h2 class="text-center">Task List</h2>
+        <h2 class="text-center">List des tache</h2>
     </div>
 </div>
 
@@ -223,10 +222,10 @@
 
     <div class="d-flex mb-4">
         <a href="projet?action=list" class="btn btn-back">
-            <i class="fas fa-arrow-left me-1"></i> Back to Projects
+            <i class="fas fa-arrow-left me-1"></i> Retour aux projets
         </a>
         <a href="tache?action=add&projetId=<%= projet.getId() %>" class="btn btn-ajouter">
-            <i class="fas fa-plus me-1"></i> Add New Task
+            <i class="fas fa-plus me-1"></i> Ajouter une nouvelle tache
         </a>
     </div>
 
@@ -239,8 +238,8 @@
         <div class="col-md-4">
             <div class="task-card">
                 <h4><%= tache.getDescription() %><span class="task-id"><%= tache.getId() %></span></h4>
-                <p><strong>Start Date:</strong> <%= tache.getDateDebut() %></p>
-                <p><strong>End Date:</strong> <%= tache.getDateFin() %></p>
+                <p><strong>Date debut:</strong> <%= tache.getDateDebut() %></p>
+                <p><strong>Date de Fin:</strong> <%= tache.getDateFin() %></p>
 
                 <div class="task-actions">
                     <a href="tache?action=update&id=<%= tache.getId() %>&&projetId=<%= projet.getId() %>" class="btn btn-modifier">
@@ -259,7 +258,7 @@
         %>
         <div class="col-12">
             <div class="empty-message">
-                <p class="text-muted">No tasks available for this project.</p>
+                <p class="text-muted">Aucune tâche disponible pour ce projet.</p>
             </div>
         </div>
         <% } %>
@@ -267,7 +266,7 @@
     <% } else { %>
     <div class="col-12">
         <div class="empty-message">
-            <p class="text-muted">Project not found.</p>
+            <p class="text-muted">Projet non trouvé.</p>
         </div>
     </div>
     <% } %>

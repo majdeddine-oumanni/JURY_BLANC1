@@ -1,17 +1,17 @@
 <%--
   Created by IntelliJ IDEA.
   User: MAJD
-  Date: 3/20/2025
-  Time: 10:00 AM
+  Date: 3/23/2025
+  Time: 5:43 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="models.Projet" %>
+<%@ page import="models.Ressource" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ajouter Task</title>
+    <title>Ajouter une Ressource</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -82,24 +82,6 @@
             box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
         }
 
-        .project-info {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #3498db;
-        }
-
-        .project-info h5 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .project-info p {
-            margin-bottom: 5px;
-            color: #7f8c8d;
-        }
-
         .btn-submit {
             background-color: #27ae60;
             color: white;
@@ -148,7 +130,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="projet?action=list">Afficher Les projet</a></li>
+                <li class="nav-item"><a class="nav-link" href="ressource?action=list">Liste des Ressources</a></li>
+                <li class="nav-item"><a class="nav-link" href="ressource?action=add">Ajouter une Ressource</a></li>
+                <li class="nav-item"><a class="nav-link" href="projet?action=list">Liste des Projets</a></li>
                 <li class="nav-item"><a class="nav-link btn btn-dark" href="index.jsp">Logout</a></li>
             </ul>
         </div>
@@ -157,89 +141,55 @@
 
 <div class="page-header">
     <div class="container">
-        <h2 class="text-center">Ajouter une nouvelle tache</h2>
+        <h2 class="text-center">Ajouter une Nouvelle Ressource</h2>
     </div>
 </div>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <%
-                Projet projet = (Projet) request.getAttribute("projet");
-                if (projet != null) {
-            %>
-            <div class="project-info">
-                <h5>Ajout d'une tache au projet: <%= projet.getNom() %></h5>
-                <p><strong>ID de projet:</strong> <%= projet.getId() %></p>
-                <p><strong>Duree du projet:</strong> <%= projet.getDateDebut() %> to <%= projet.getDateFin() %></p>
-            </div>
-
             <div class="form-container">
-                <form action="tache?action=add" method="post">
-                    <input type="hidden" name="projetId" value="<%= projet.getId() %>">
-
+                <form action="ressource?action=add" method="post">
                     <div class="mb-3">
-                        <label for="description" class="form-label required-field">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                        <label for="nom" class="form-label required-field">Nom</label>
+                        <input type="text" class="form-control" id="nom" name="nom" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="dateDebut" class="form-label required-field">Date debut</label>
-                        <input type="date" class="form-control" id="dateDebut" name="dateDebut" required
-                               min="<%= projet.getDateDebut() %>" max="<%= projet.getDateFin() %>">
+                        <label for="type" class="form-label required-field">Type</label>
+                        <select class="form-control" id="type" name="type" required>
+                            <option value="">Sélectionner un type</option>
+                            <option value="Matériel">Matériel</option>
+                            <option value="Logiciel">Logiciel</option>
+                            <option value="Humain">Humain</option>
+                            <option value="Financier">Financier</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
-                        <label for="dateFin" class="form-label required-field">Date de Fin</label>
-                        <input type="date" class="form-control" id="dateFin" name="dateFin" required
-                               min="<%= projet.getDateDebut() %>" max="<%= projet.getDateFin() %>">
+                        <label for="quantite" class="form-label required-field">Quantité</label>
+                        <input type="number" class="form-control" id="quantite" name="quantite" min="0" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fournisseur" class="form-label required-field">Fournisseur</label>
+                        <input type="text" class="form-control" id="fournisseur" name="fournisseur" required>
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <a href="tache?action=list&projetId=<%= projet.getId() %>" class="btn btn-cancel">
+                        <a href="ressource?action=list" class="btn btn-cancel">
                             <i class="fas fa-times me-1"></i> Annuler
                         </a>
                         <button type="submit" class="btn btn-submit">
-                            <i class="fas fa-plus me-1"></i> Ajouter Tache
+                            <i class="fas fa-plus me-1"></i> Ajouter Ressource
                         </button>
                     </div>
                 </form>
             </div>
-            <% } else { %>
-            <div class="alert alert-danger">
-                <p>Projet introuvable. Veuillez sélectionner un projet valide.</p>
-                <a href="projet?action=list" class="btn btn-primary mt-3">Acceder a la liste des projets</a>
-            </div>
-            <% } %>
         </div>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const startDateInput = document.getElementById('dateDebut');
-        const endDateInput = document.getElementById('dateFin');
-
-        startDateInput.addEventListener('change', function() {
-            endDateInput.min = startDateInput.value;
-            if (endDateInput.value && new Date(endDateInput.value) < new Date(startDateInput.value)) {
-                endDateInput.value = startDateInput.value;
-            }
-        });
-
-        const form = document.querySelector('form');
-        form.addEventListener('submit', function(event) {
-            const startDate = new Date(startDateInput.value);
-            const endDate = new Date(endDateInput.value);
-
-            if (endDate < startDate) {
-                event.preventDefault();
-                alert('End date must be after or equal to start date');
-            }
-        });
-    });
-</script>
 </body>
 </html>

@@ -96,9 +96,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="projet?action=list">Afficher Les projet</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">who we are</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ressource?action=list">Liste de Ressource</a></li>
+                    <!--<li class="nav-item"><a class="nav-link" href="#">Services</a></li>-->
+                    <!--<li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>-->
                     <li class="nav-item"><a class="nav-link btn btn-dark" href="#">Login</a></li>
                 </ul>
             </div>
@@ -109,8 +109,8 @@
         <h1>ConstructionXpert Services Solution</h1>
         <p>Cette application web permet à l'équipe de construction de créer et gérer efficacement des projets, d'assigner des tâches aux membres, de gérer les ressources essentielles et de suivre en temps réel l'évolution des projets et des tâches</p>
         <div class="hero-buttons">
-            <button class="btn btn-dark">Learn More</button>
-            <button class="btn btn-outline-light">Get In Touch</button>
+            <button class="btn btn-dark">Afficher Les projet</button>
+            <button class="btn btn-outline-light">Login</button>
         </div>
     </div>
 </header>

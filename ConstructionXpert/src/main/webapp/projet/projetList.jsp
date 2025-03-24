@@ -178,16 +178,16 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="projet?action=list">Afficher Les projet</a></li>
         <li class="nav-item"><a class="nav-link" href="projet?action=add">Ajouter un projet</a></li>
-        <!--<li class="nav-item"><a class="nav-link" href="#">Services</a></li>-->
+        <li class="nav-item"><a class="nav-link" href="ressource?action=list">Afficher Les projet</a></li>
         <!--<li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>-->
-        <li class="nav-item"><a class="nav-link btn btn-dark" href="#">Logout</a></li>
+        <li class="nav-item"><a class="nav-link btn btn-dark" href="index.jsp">Logout</a></li>
       </ul>
     </div>
   </div>
 </nav>
 <div class="page-header">
   <div class="container">
-    <h2 class="text-center">Project List</h2>
+    <h2 class="text-center">List des Projets</h2>
   </div>
 </div>
 
@@ -232,7 +232,7 @@
     %>
     <div class="col-12">
       <div class="empty-message">
-        <p class="text-muted">No projects available.</p>
+        <p class="text-muted">Aucun projet disponible.</p>
       </div>
     </div>
     <% } %>
