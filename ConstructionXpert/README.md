@@ -27,6 +27,14 @@ En tant que développeur full-stack freelance, vous êtes sollicité pour créer
 3. Configurer la base de données MySQL avec les scripts SQL fournis.
 4. Déployer sur Apache Tomcat.
 
+
+# Diagram UML #
+## diagram de class
+![Diagram de class](ClassUML.png)
+## diagram de cas d'utulisation
+![Diagram de class](useCaseXpert.png)
+## diagram de sequence
+![Diagram de class](SequenceXpert.png)
 ## Auteur
 **MAJDEDDINE OUMANNI**
 
