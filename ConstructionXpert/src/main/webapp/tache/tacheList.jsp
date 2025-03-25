@@ -117,10 +117,29 @@
 
         .task-actions {
             display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
             justify-content: space-between;
             margin-top: 15px;
             padding-top: 15px;
             border-top: 1px solid #eee;
+        }
+
+        .task-actions .btn {
+            flex-grow: 1;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 576px) {
+            .task-actions {
+                flex-direction: column;
+            }
+
+            .task-actions .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
         }
 
         .btn-ajouter {
@@ -194,7 +213,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="projet?action=list">Afficher Les projet</a></li
+                <li class="nav-item"><a class="nav-link" href="projet?action=list">Afficher Les projet</a></li>
                 <li class="nav-item"><a class="nav-link" href="ressource?action=list">Liste de Ressource</a></li>
                 <li class="nav-item"><a class="nav-link btn btn-dark" href="index.jsp">Logout</a></li>
             </ul>
@@ -250,10 +269,15 @@
                        onclick="return confirm('Etes-vous sur de vouloir supprimer cette tache?')">
                         <i class="fas fa-trash me-1"></i> Supprimer
                     </a>
+                    <a href="assign?action=add&tacheId=<%=tache.getId()%>" class="btn btn-ajouter">
+                        <i class="fas fa-plus-circle me-1"></i> Affecter Ressource
+                    </a>
+                    <a href="assign?action=list&id=<%=tache.getId()%>" class="btn btn-modifier">
+                        <i class="fas fa-list me-1"></i> Voir Ressources
+                    </a>
                 </div>
             </div>
         </div>
-        <a href="assign?action=add&tacheId=<%=tache.getId()%>">affectation d'un ressource</a>
         <%
             }
         } else {

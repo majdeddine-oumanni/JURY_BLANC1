@@ -3,7 +3,6 @@ package DAO;
 import DBUtils.Connector;
 import models.Assignment;
 
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ public class AssignmentDAO {
             conn = Connector.getConnection();
             conn.setAutoCommit(false);
 
-
+            // Check available quantity
             String checkSql = "SELECT quantite FROM ressource WHERE id = ?";
             stmt = conn.prepareStatement(checkSql);
             stmt.setInt(1, assignment.getRessourceId());
@@ -32,14 +31,19 @@ public class AssignmentDAO {
             } else {
                 throw new SQLException("Resource not found.");
             }
+            rs.close();
+            stmt.close(); // Close previous statement
 
+            // Insert into tache_ressource
             String insertSql = "INSERT INTO tache_ressource (ressourceId, tacheId, quantiteUtilise) VALUES (?, ?, ?)";
             stmt = conn.prepareStatement(insertSql);
             stmt.setInt(1, assignment.getRessourceId());
             stmt.setInt(2, assignment.getTacheId());
             stmt.setInt(3, assignment.getQuantiteUtilise());
             stmt.executeUpdate();
+            stmt.close(); // Close previous statement
 
+            // Update ressource table
             String updateSql = "UPDATE ressource SET quantite = quantite - ? WHERE id = ?";
             updateStmt = conn.prepareStatement(updateSql);
             updateStmt.setInt(1, assignment.getQuantiteUtilise());
@@ -57,10 +61,9 @@ public class AssignmentDAO {
         }
     }
 
-
     public static List<Assignment> getAssignmentsByTacheId(int tacheId) throws SQLException {
         List<Assignment> assignments = new ArrayList<>();
-        String query = "SELECT t.id, t.tacheId, t.ressourceId, t.quantiteUtilise, r.nom, r.type " +
+        String query = "SELECT a.id, a.tacheId, a.ressourceId, a.quantiteUtilise, r.nom, r.type " +
                 "FROM tache_ressource a " +
                 "JOIN ressource r ON a.ressourceId = r.id " +
                 "WHERE a.tacheId = ?";
@@ -72,7 +75,7 @@ public class AssignmentDAO {
                 while (rs.next()) {
                     Assignment assignment = new Assignment();
                     assignment.setId(rs.getInt("id"));
-                    assignment.setTacheId(rs.getInt("tascheId"));
+                    assignment.setTacheId(rs.getInt("tacheId")); // Fixed typo
                     assignment.setRessourceId(rs.getInt("ressourceId"));
                     assignment.setQuantiteUtilise(rs.getInt("quantiteUtilise"));
                     assignment.setResourceNom(rs.getString("nom"));

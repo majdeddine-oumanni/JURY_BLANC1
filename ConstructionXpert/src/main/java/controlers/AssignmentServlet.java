@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("assign")
+@WebServlet("/assign")
 public class AssignmentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,8 +37,11 @@ public class AssignmentServlet extends HttpServlet {
             case "list":
                 int id = Integer.parseInt(req.getParameter("id"));
                 try {
+                    Tache tache = TacheDAO.getTacheById(id);
                     List<Assignment> assignmentList = AssignmentDAO.getAssignmentsByTacheId(id);
-                    req.getRequestDispatcher("/tache/AfficherAssign.jsp").forward(req,resp);
+                    req.setAttribute("assignmentList", assignmentList);
+                    req.setAttribute("tache", tache);
+                    req.getRequestDispatcher("/tache/afficherAssign.jsp").forward(req,resp);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -76,6 +79,7 @@ public class AssignmentServlet extends HttpServlet {
                 quantite
         );
         AssignmentDAO.ajouterAssignment(assignment);
+        req.setAttribute("id", tacheId);
         resp.sendRedirect("assign?action=list");
     }
 
@@ -83,6 +87,7 @@ public class AssignmentServlet extends HttpServlet {
     protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
         int id = Integer.parseInt(req.getParameter("id"));
         AssignmentDAO.supprimerAssignment(id);
+        req.setAttribute("id", id);
         resp.sendRedirect("assign?action=list");
     }
 }

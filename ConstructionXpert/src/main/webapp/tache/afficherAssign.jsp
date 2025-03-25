@@ -106,7 +106,7 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="projet?action=list">Afficher Les projets</a></li>
                 <li class="nav-item"><a class="nav-link" href="projet?action=add">Ajouter un projet</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-dark" href="#">Logout</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-dark" href="index.jsp">Logout</a></li>
             </ul>
         </div>
     </div>
@@ -114,7 +114,7 @@
 
 <div class="page-header">
     <div class="container">
-        <h2 class="text-center">Ressources Affectées à la Tâche</h2>
+        <h2 class="text-center">Ressources Affectees a la Tache</h2>
     </div>
 </div>
 
@@ -127,10 +127,10 @@
             %>
 
             <div class="task-details">
-                <h4>Détails de la Tâche</h4>
+                <h4>Details de la Tache</h4>
                 <p><strong>ID:</strong> <%= tache.getId() %></p>
                 <p><strong>Description:</strong> <%= tache.getDescription() %></p>
-                <p><strong>Date Début:</strong> <%= tache.getDateDebut() %></p>
+                <p><strong>Date Debut:</strong> <%= tache.getDateDebut() %></p>
                 <p><strong>Date Fin:</strong> <%= tache.getDateFin() %></p>
             </div>
 
@@ -150,7 +150,7 @@
                     <tr>
                         <th scope="col">Ressource</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Quantité Utilisée</th>
+                        <th scope="col">Quantite Utilisee</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
@@ -174,7 +174,7 @@
                 </table>
                 <% } else { %>
                 <div class="empty-message">
-                    <p class="text-muted">Aucune ressource n'est affectée à cette tâche.</p>
+                    <p class="text-muted">Aucune ressource n'est affectee a cette tache.</p>
                     <p>Cliquez sur "Ajouter une Ressource" pour commencer.</p>
                 </div>
                 <% } %>

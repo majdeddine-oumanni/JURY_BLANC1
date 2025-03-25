@@ -86,7 +86,7 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="projet?action=list">Afficher Les projets</a></li>
                 <li class="nav-item"><a class="nav-link" href="projet?action=add">Ajouter un projet</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-dark" href="#">Logout</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-dark" href="index.jsp">Logout</a></li>
             </ul>
         </div>
     </div>
@@ -94,7 +94,7 @@
 
 <div class="page-header">
     <div class="container">
-        <h2 class="text-center">Affecter des Ressources à la Tâche</h2>
+        <h2 class="text-center">Affecter des Ressources à la Tache</h2>
     </div>
 </div>
 
@@ -108,27 +108,24 @@
                 %>
 
                 <div class="task-details">
-                    <h4>Détails de la Tâche</h4>
+                    <h4>Details de la Tache</h4>
                     <p><strong>ID:</strong> <%= tache.getId() %></p>
                     <p><strong>Description:</strong> <%= tache.getDescription() %></p>
-                    <p><strong>Date Début:</strong> <%= tache.getDateDebut() %></p>
+                    <p><strong>Date Debut:</strong> <%= tache.getDateDebut() %></p>
                     <p><strong>Date Fin:</strong> <%= tache.getDateFin() %></p>
                 </div>
 
-                <form action="assign" method="post">
-                    <input type="hidden" name="action" value="add">
-                    <input type="hidden" name="tacheId" value="<%= tache.getId() %>">
-
+                <form action="assign?action=add&tacheId=<%=tache.getId()%>" method="post">
                     <div class="mb-3">
-                        <label for="ressource" class="form-label">Sélectionner une Ressource</label>
+                        <label for="ressource" class="form-label">Selectionner une Ressource</label>
                         <select class="form-select" id="ressource" name="ressource" required>
                             <option value="" selected disabled>Choisir une ressource</option>
                             <%
                                 if(ressourceList != null && !ressourceList.isEmpty()) {
                                     for(Ressource ressource : ressourceList) {
                             %>
-                            <option value="<%= ressource.getId() %>" data-disponible="<%= ressource.getQuantiteDisponible() %>">
-                                <%= ressource.getNom() %> - Disponible: <%= ressource.getQuantiteDisponible() %>
+                            <option value="<%= ressource.getId() %>" data-disponible="<%= ressource.getQuantite() %>">
+                                <%= ressource.getNom() %> - Disponible: <%= ressource.getQuantite() %>
                             </option>
                             <%
                                     }
@@ -138,14 +135,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="quantiteSelected" class="form-label">Quantité à Utiliser</label>
+                        <label for="quantiteSelected" class="form-label">Quantite à Utiliser</label>
                         <input type="number" class="form-control" id="quantiteSelected" name="quantiteSelected" min="1" required>
-                        <div id="quantiteHelp" class="form-text">La quantité ne peut pas dépasser la quantité disponible.</div>
+                        <div id="quantiteHelp" class="form-text">La quantite ne peut pas dépasser la quantité disponible.</div>
                     </div>
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary">Affecter Ressource</button>
-                        <a href="tache?action=list&projetId=<%= tache.getProjetId() %>" class="btn btn-secondary">Annuler</a>
+                        <a href="tache?action=list&projetId=<%= tache.getprojetId() %>" class="btn btn-secondary">Annuler</a>
                     </div>
                 </form>
             </div>
