@@ -94,7 +94,7 @@
 
 <div class="page-header">
     <div class="container">
-        <h2 class="text-center">Affecter des Ressources à la Tache</h2>
+        <h2 class="text-center">Affecter des Ressources a la Tache</h2>
     </div>
 </div>
 
@@ -115,7 +115,7 @@
                     <p><strong>Date Fin:</strong> <%= tache.getDateFin() %></p>
                 </div>
 
-                <form action="assign?action=add&tacheId=<%=tache.getId()%>" method="post">
+                <form action="assign?action=add&&tacheId=<%=tache.getId()%>" method="post">
                     <div class="mb-3">
                         <label for="ressource" class="form-label">Selectionner une Ressource</label>
                         <select class="form-select" id="ressource" name="ressource" required>
@@ -135,9 +135,9 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="quantiteSelected" class="form-label">Quantite à Utiliser</label>
+                        <label for="quantiteSelected" class="form-label">Quantite a Utiliser</label>
                         <input type="number" class="form-control" id="quantiteSelected" name="quantiteSelected" min="1" required>
-                        <div id="quantiteHelp" class="form-text">La quantite ne peut pas dépasser la quantité disponible.</div>
+                        <div id="quantiteHelp" class="form-text">La quantite ne peut pas depasser la quantite disponible.</div>
                     </div>
 
                     <div class="d-grid gap-2">

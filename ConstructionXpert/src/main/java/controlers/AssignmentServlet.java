@@ -79,15 +79,13 @@ public class AssignmentServlet extends HttpServlet {
                 quantite
         );
         AssignmentDAO.ajouterAssignment(assignment);
-        req.setAttribute("id", tacheId);
-        resp.sendRedirect("assign?action=list");
+        resp.sendRedirect("assign?action=list&&id="+tacheId);
     }
 
 
     protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
         int id = Integer.parseInt(req.getParameter("id"));
         AssignmentDAO.supprimerAssignment(id);
-        req.setAttribute("id", id);
-        resp.sendRedirect("assign?action=list");
+        resp.sendRedirect("assign?action=list&&id="+id);
     }
 }

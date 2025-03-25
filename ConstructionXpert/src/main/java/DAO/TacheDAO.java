@@ -15,7 +15,7 @@ import static DBUtils.Connector.getConnection;
 public class TacheDAO {
 
     public static void ajouterTache(Tache tache) throws SQLException {
-        String sql = "INSERT INTO tache(projet_id, description, dateDebut, dateFin) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO tache(projetId, description, dateDebut, dateFin) VALUES (?,?,?,?)";
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, tache.getprojetId());
@@ -50,7 +50,7 @@ public class TacheDAO {
         Tache tache = new Tache();
         if (rs.next()){
             tache.setId(rs.getInt("id"));
-            tache.setprojetId(rs.getInt("projet_id"));
+            tache.setprojetId(rs.getInt("projetId"));
             tache.setDescription(rs.getString("description"));
             tache.setDateDebut(rs.getDate("dateDebut"));
             tache.setDateFin(rs.getDate("dateFin"));
@@ -67,7 +67,7 @@ public class TacheDAO {
     }
     public static List<Tache> getTacheList(int projetId) throws SQLException {
         List<Tache> tacheList = new ArrayList<>();
-        String sql = "SELECT * FROM tache WHERE projet_id = ?";
+        String sql = "SELECT * FROM tache WHERE projetId = ?";
         Connection con = getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, projetId);
@@ -75,7 +75,7 @@ public class TacheDAO {
         while (rs.next()){
             Tache tache = new Tache(
                     rs.getInt("id"),
-                    rs.getInt("projet_id"),
+                    rs.getInt("projetId"),
                     rs.getString("description"),
                     rs.getDate("dateDebut"),
                     rs.getDate("dateFin")

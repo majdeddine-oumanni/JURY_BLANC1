@@ -226,7 +226,7 @@
         <% } else { %>
         <div class="empty-table">
             <i class="fas fa-box-open fa-3x mb-3"></i>
-            <h4>Aucune ressource trouvée</h4>
+            <h4>Aucune ressource trouvee</h4>
             <p>Commencez par ajouter une nouvelle ressource.</p>
             <a href="ressource?action=add" class="btn btn-primary mt-2">
                 <i class="fas fa-plus me-1"></i> Ajouter une Ressource

@@ -13,7 +13,7 @@
         }
         .container-form {
             max-width: 600px;
-            margin: 50px auto;
+            margin: 80px auto;
             padding: 20px;
             background: #f8f9fa;
             border-radius: 8px;
